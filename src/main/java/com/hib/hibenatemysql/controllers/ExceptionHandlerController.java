@@ -22,5 +22,12 @@ public class ExceptionHandlerController implements ErrorController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> nullError(NullPointerException error) {
+        Map<String, String> map = new HashMap<>();
+        map.put("Msg ", error.getLocalizedMessage());
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 
 }

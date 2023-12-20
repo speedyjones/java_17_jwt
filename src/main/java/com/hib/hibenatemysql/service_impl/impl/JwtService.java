@@ -1,4 +1,4 @@
-package com.hib.hibenatemysql.service_impl.service;
+package com.hib.hibenatemysql.service_impl.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -59,7 +59,7 @@ public class JwtService {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String userId = extractUserId(token);
-        return (userDetails.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (userId.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Key getSignInKey() {

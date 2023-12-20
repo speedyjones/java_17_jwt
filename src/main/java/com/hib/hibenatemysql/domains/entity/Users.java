@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users extends PreDefined implements Serializable {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,6 @@ public class Users extends PreDefined implements Serializable {
     @Column(length = 100)
     private String password;
     private String token;
-    private boolean isActive = true;
-    private boolean isDeleted = false;
+
 
 }

@@ -11,11 +11,12 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<Users, Integer> {
 
     @Query(value = "select * from users order by id desc limit 1", nativeQuery = true)
-    Users findLastId();
+    Optional<Users> findLastId();
 
-    @Query(value = "select * from users where userId = ?1", nativeQuery = true)
-    Optional<Users> findByUserid(String userid);
+    Optional<Users> findByUserId(String userid);
 
     @Query(value = "select * from users where userId = ?1", nativeQuery = true)
     Users findUser(String userId);
+
+
 }
