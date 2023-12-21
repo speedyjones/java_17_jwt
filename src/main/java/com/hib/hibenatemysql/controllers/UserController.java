@@ -31,5 +31,10 @@ public class UserController {
         return usersService.fetchUsers();
     }
 
+    @GetMapping("/getById")
+    private UsersDTO getById(@RequestParam String userId) {
+        return usersService.getById(userId);
+    }
+
 
 }

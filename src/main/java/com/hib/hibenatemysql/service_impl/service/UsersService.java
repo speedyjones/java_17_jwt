@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface UsersService {
     UsersDTO login(LoginDTO loginDTO);
+
     List<UsersDTO> fetchUsers();
 
     UsersDTO createUser(UsersDTO usersDTO);
+
+    UsersDTO getById(String userId);
 }

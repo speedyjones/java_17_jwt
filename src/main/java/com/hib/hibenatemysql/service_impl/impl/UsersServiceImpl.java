@@ -6,6 +6,7 @@ import com.hib.hibenatemysql.domains.entity.Users;
 import com.hib.hibenatemysql.repo.UserRepo;
 import com.hib.hibenatemysql.service_impl.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ public class UsersServiceImpl implements UsersService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     public String createUserId() {
         Optional<Users> getId = userRepo.findLastId();
@@ -54,6 +56,20 @@ public class UsersServiceImpl implements UsersService {
         usersDTO.setPassword("SECRET");
         usersDTO.setUserId(userId);
         return usersDTO;
+    }
+
+    @Override
+    public UsersDTO getById(String userId) {
+
+        Optional<Users> usersDetail = userRepo.findByUserId(userId);
+        return UsersDTO.builder()
+                .userId(usersDetail.get().getUserId())
+                .firstName(usersDetail.get().getFirstName())
+                .middleName(usersDetail.get().getMiddleName())
+                .lastName(usersDetail.get().getLastName())
+                .password("SECRET")
+                .token("-")
+                .build();
     }
 
 
