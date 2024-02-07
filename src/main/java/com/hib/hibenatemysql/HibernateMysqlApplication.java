@@ -13,6 +13,7 @@ public class HibernateMysqlApplication {
         return new ModelMapper();
     }
 
+
     public static void main(String[] args) {
         SpringApplication.run(HibernateMysqlApplication.class, args);
     }

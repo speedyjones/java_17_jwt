@@ -1,12 +1,13 @@
 package com.hib.hibenatemysql.controllers;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
@@ -30,11 +31,19 @@ public class ExceptionHandlerController implements ErrorController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<?> accessDenied(AccessDeniedException error) {
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<?> expiredToken(ExpiredJwtException error) {
         Map<String, String> map = new HashMap<>();
         map.put("Msg ", error.getLocalizedMessage());
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @ExceptionHandler(HttpClientErrorException.Forbidden.class)
+    public ResponseEntity<?> forbidden(HttpClientErrorException.Forbidden error) {
+        Map<String, String> map = new HashMap<>();
+        map.put("Msg ", error.getLocalizedMessage());
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 
 }

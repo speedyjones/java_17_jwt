@@ -41,6 +41,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UsersDTO createUser(UsersDTO usersDTO) {
         String userId = createUserId();
+
         userRepo.save(Users.builder()
                 .firstName(usersDTO.getFirstName())
                 .middleName(usersDTO.getMiddleName())
