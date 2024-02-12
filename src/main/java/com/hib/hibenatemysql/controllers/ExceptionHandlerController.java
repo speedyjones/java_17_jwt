@@ -45,7 +45,6 @@ public class ExceptionHandlerController implements ErrorController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> customException(CustomException error) {
         Map<String, String> map = new HashMap<>();
