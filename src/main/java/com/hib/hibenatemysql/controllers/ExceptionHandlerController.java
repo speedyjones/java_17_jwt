@@ -46,4 +46,11 @@ public class ExceptionHandlerController implements ErrorController {
     }
 
 
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<?> customException(CustomException error) {
+        Map<String, String> map = new HashMap<>();
+        map.put("Msg ", error.getLocalizedMessage());
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 }
