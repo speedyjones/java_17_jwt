@@ -38,13 +38,6 @@ public class ExceptionHandlerController implements ErrorController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<?> customException(CustomException error) {
-        Map<String, String> map = new HashMap<>();
-        map.put("Msg ", error.getLocalizedMessage());
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
     @ExceptionHandler(HttpClientErrorException.Forbidden.class)
     public ResponseEntity<?> forbidden(HttpClientErrorException.Forbidden error) {
         Map<String, String> map = new HashMap<>();
