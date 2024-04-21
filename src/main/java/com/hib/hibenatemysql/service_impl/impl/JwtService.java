@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@Slf4j
 public class JwtService {
 
     private static final int token_expiry_time = 1000 * 120 * 24;
@@ -47,13 +49,14 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
+
     }
 
     private Boolean isTokenExpired(String token) {
         return extractExpiry(token).before(new Date());
     }
 
-    private Date extractExpiry(String token) {
+    public Date extractExpiry(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 

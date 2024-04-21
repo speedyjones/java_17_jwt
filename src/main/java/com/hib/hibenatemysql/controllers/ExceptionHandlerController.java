@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.SQLSyntaxErrorException;
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +37,20 @@ public class ExceptionHandlerController implements ErrorController {
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<?> expiredToken(ExpiredJwtException error) {
+    public ResponseEntity<?> handleJwtError(String error) throws ParseException {
         Map<String, String> map = new HashMap<>();
-        map.put("Msg ", error.getLocalizedMessage());
+        log.info("msg " + error);
+
+        String dateTime = error.substring(15, 35).strip();
+        Instant instant = Instant.parse(dateTime);
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.of("UTC"));
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        log.error("date " + zonedDateTime.format(sdf));
+
+        map.put("Msg :", "Token Expired At " + zonedDateTime.format(sdf));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
 
     @ExceptionHandler(HttpClientErrorException.Forbidden.class)
     public ResponseEntity<?> forbidden(HttpClientErrorException.Forbidden error) {

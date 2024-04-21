@@ -16,22 +16,22 @@ public class UserController {
     private final UsersService usersService;
 
 
-    @PostMapping("/createUser")
+    @PostMapping("createUser")
     private UsersDTO createUser(@RequestBody UsersDTO usersDTO) {
         return usersService.createUser(usersDTO);
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     private UsersDTO login(@RequestBody LoginDTO loginDTO) {
         return usersService.login(loginDTO);
     }
 
-    @GetMapping("/fetchUsers")
+    @GetMapping("fetchUsers")
     private List<UsersDTO> fetchUsers() {
         return usersService.fetchUsers();
     }
 
-    @GetMapping("/getById")
+    @GetMapping("getById")
     private UsersDTO getById(@RequestParam String userId) {
         return usersService.getById(userId);
     }
