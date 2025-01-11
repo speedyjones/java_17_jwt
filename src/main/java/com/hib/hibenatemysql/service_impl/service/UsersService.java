@@ -13,4 +13,6 @@ public interface UsersService {
     UsersDTO createUser(UsersDTO usersDTO);
 
     UsersDTO getById(String userId);
+
+    String testJarApi();
 }

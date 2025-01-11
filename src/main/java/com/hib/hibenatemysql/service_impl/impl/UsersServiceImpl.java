@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class UsersServiceImpl implements UsersService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+
 
     public String createUserId() {
         Optional<Users> getId = userRepo.findLastId();
@@ -71,6 +73,13 @@ public class UsersServiceImpl implements UsersService {
                 .password("SECRET")
                 .token("-")
                 .build();
+    }
+
+    @Override
+    public String testJarApi() {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8081/api/main/helloTest";
+        return restTemplate.getForObject(url, String.class);
     }
 
 

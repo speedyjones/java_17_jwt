@@ -36,5 +36,9 @@ public class UserController {
         return usersService.getById(userId);
     }
 
+    @GetMapping("test")
+    private String testJarApi() {
+        return usersService.testJarApi();
+    }
 
 }
